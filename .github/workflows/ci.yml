@@ -5,13 +5,22 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - run: cmake .
-      - run: cmake --build .
-      - run: ./example
+      - name: Checkout sources
+        uses: actions/checkout@v1
+      - name: Configure
+        run: cmake .
+      - name: Build
+        run: cmake --build .
+      - name: Try to run it
+        run: ./example
   tidy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - run: cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-      - run: clang-tidy -p . include/split_string.hpp
+      - name: Checkout sources
+        uses: actions/checkout@v1
+      - name: Install clang-tidy
+        run: sudo apt-get install -y --no-install-recommends clang-tidy-9
+      - name: Configure
+        run: cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+      - name: Check
+        run: clang-tidy -p . include/split_string.hpp
