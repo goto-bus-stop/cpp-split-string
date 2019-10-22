@@ -1,0 +1,14 @@
+name: C++ CI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - cmake .
+      - cmake --build .
+      - ./example
+  tidy:
+    runs-on: ubuntu-latest
+    steps:
+      - cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+      - clang-tidy -p . include/split_string.hpp
