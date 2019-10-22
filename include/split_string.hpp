@@ -75,8 +75,8 @@ public:
     }
   };
 
-  iterator begin() { return iterator(this->input_, this->separator_); }
-  iterator end() {
+  inline iterator begin() { return iterator(this->input_, this->separator_); }
+  inline iterator end() {
     return iterator(this->input_.substr(this->input_.size()), this->separator_);
   }
 
@@ -129,10 +129,10 @@ public:
     }
   };
 
-  reverse_iterator rbegin() {
+  inline reverse_iterator rbegin() {
     return reverse_iterator(this->input_, this->separator_);
   }
-  reverse_iterator rend() {
+  inline reverse_iterator rend() {
     return reverse_iterator(this->input_.substr(0, 0), this->separator_);
   }
 };

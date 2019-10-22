@@ -27,24 +27,33 @@ int main () {
 Copy [`include/split_string.hpp`](./include/split_string.hpp) into your project or add the repository as a submodule and add `$THIS_REPO/include` to your include path.
 
 ## API
-### `auto splitter = split_string(basic_string_view<AnyT> input, basic_string_view<AnyT> separator)`
+### `auto splitter = split_string(string_view input, string_view separator)`
 Create an iterable value for the given input string. `separator` can be anything that `std::is_convertible<>` to a `string_view.`
 
-This is a templated function that will accept any kind of `std::basic_string_view<AnyT>`. The `separator` and `input` must use the same character type. Use `auto` to avoid naming the return type.
+This is a templated function that will accept any kind of `std::basic_string_view<CharT>`. The `separator` and `input` must use the same character type. Use `auto` to avoid naming the return type. The full signature is:
 
-### `split_string<AnyT>::iterator begin = splitter.begin()`
+```cpp
+template<typename CharT>
+split_string(std::basic_string_view<CharT> input, std::basic_string_view<CharT> separator);
+
+template<typename CharT, typename SepT, typename = typename std::enable_if<
+  std::is_convertible_v<SepT, value_type>>::type>
+split_string(std::basic_string_view<CharT> input, SepT separator);
+```
+
+### `split_string<CharT>::iterator begin = splitter.begin()`
 Get the iterator for the first character in the string.
 
-### `split_string<AnyT>::iterator end = splitter.end()`
+### `split_string<CharT>::iterator end = splitter.end()`
 Get the iterator for the end of the string.
 
-### `split_string<AnyT>::reverse_iterator begin = splitter.rbegin()`
+### `split_string<CharT>::reverse_iterator begin = splitter.rbegin()`
 Get the reverse iterator for the entire remaining string.
 
-### `split_string<AnyT>::reverse_iterator end = splitter.rend()`
+### `split_string<CharT>::reverse_iterator end = splitter.rend()`
 Get the reverse iterator for the start of the string.
 
-### `auto reverse_splitter = rsplit_string(basic_string_view<AnyT> input, basic_string_view<AnyT> separator)`
+### `auto reverse_splitter = rsplit_string(string_view input, string_view separator)`
 Create an iterable value that proxies its `begin()` and `end()` calls to the reverse iterator of `split_string`.
 
 This way you can do reverse iteration in a ranged for loop, and not fiddle around with `rbegin()` and `rend()`:
