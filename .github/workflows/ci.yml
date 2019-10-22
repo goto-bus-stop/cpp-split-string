@@ -4,11 +4,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - cmake .
-      - cmake --build .
-      - ./example
+      - uses: actions/checkout@v1
+      - run: cmake .
+      - run: cmake --build .
+      - run: ./example
   tidy:
     runs-on: ubuntu-latest
     steps:
-      - cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
-      - clang-tidy -p . include/split_string.hpp
+      - uses: actions/checkout@v1
+      - run: cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
+      - run: clang-tidy -p . include/split_string.hpp
