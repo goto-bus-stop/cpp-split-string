@@ -26,4 +26,4 @@ jobs:
       - name: Configure
         run: cmake . -DCMAKE_EXPORT_COMPILE_COMMANDS=YES
       - name: Check
-        run: clang-tidy -p . include/split_string.hpp
+        run: clang-tidy-9 -p . include/split_string.hpp
