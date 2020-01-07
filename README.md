@@ -26,6 +26,12 @@ int main () {
 ## Install
 Copy [`include/split_string.hpp`](./include/split_string.hpp) into your project or add the repository as a submodule and add `$THIS_REPO/include` to your include path.
 
+Or with CMake do:
+```cmake
+add_subdirectory(path/to/cpp-split-string)
+target_link_directories(your-target PRIVATE split-string)
+```
+
 ## API
 ### `auto splitter = split_string(string_view input, string_view separator)`
 Create an iterable value for the given input string. `separator` can be anything that `std::is_convertible<>` to a `string_view.`
