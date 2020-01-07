@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.9)
 
-project(split-string)
+project(split-string
+  VERSION 0.2.0
+  DESCRIPTION "Iterate over pieces of a string using ranged for loops"
+  LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
